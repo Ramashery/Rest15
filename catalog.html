@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ИЗМЕНЕНИЕ 1: Добавлены теги для ускорения соединения с API Google -->
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+    <link rel="dns-prefetch" href="//firestore.googleapis.com">
+
+    <!-- SEO-теги (будут динамически обновлены) -->
+    <title>Wine Catalog - VinoElite</title>
+    <meta name="description" content="Explore the full collection of fine wines from around the world at VinoElite. Red, white, sparkling wines and more.">
+    
+    <!-- ИЗМЕНЕНИЕ 2: Добавлены плейсхолдеры для Open Graph (для соцсетей) -->
+    <meta property="og:title" content="Wine Catalog - VinoElite" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Explore the full collection of fine wines from around the world at VinoElite." />
+    <meta property="og:image" content="https://your-domain.com/og-image-catalog.jpg" /> <!-- Замените на ваше изображение -->
+    <meta property="og:url" content="https://your-domain.com/catalog.html" />
+    <meta property="og:site_name" content="VinoElite" />
+
+    <!-- =============================================================== -->
+    <!-- ============= НАЧАЛО: ТУРБО-СКРИПТ ДЛЯ SEO КАТАЛОГА =========== -->
+    <!-- =============================================================== -->
+    <script>
+    (function earlySeoBootstrapForCatalog() {
+        try {
+            const params = new URLSearchParams(location.search);
+            const filters = {};
+            params.forEach((value, key) => {
+                filters[key] = value.split(',').map(v => v.trim());
+            });
+
+            const capitalize = (s) => s && s.charAt(0).toUpperCase() + s.slice(1);
+
+            // --- 1. Генерация Title ---
+            let title = "Wine Catalog";
+            if (filters.category && filters.category.length > 0) {
+                title = filters.category.map(capitalize).join(', ') + " Wines";
+            } else if (filters.search) {
+                title = `Search results for "${filters.search[0]}"`;
+            } else if (filters.region && filters.region.length > 0) {
+                title = filters.region.map(capitalize).join(', ') + " Wines";
+                if (filters.country && filters.country.length > 0) {
+                    title += " from " + filters.country.map(capitalize).join(', ');
+                }
+            } else if (filters.country && filters.country.length > 0) {
+                title = "Wines from " + filters.country.map(capitalize).join(', ');
+            }
+            
+            // --- 2. Генерация Description ---
+            let description = `Explore ${title.toLowerCase()} at VinoElite. Discover our curated selection of fine wines from the best regions around the world.`;
+            if (title === "Wine Catalog") {
+                description = "Explore the full collection of fine wines from around the world at VinoElite. Red, white, sparkling wines and more.";
+            }
+
+            // --- 3. Генерация канонического URL ---
+            const canonicalUrl = new URL(location.pathname, location.origin);
+            const validParams = ['category', 'country', 'region', 'appellation', 'grapeVarieties', 'sweetness', 'search'];
+            params.forEach((value, key) => {
+                if (validParams.includes(key)) {
+                    canonicalUrl.searchParams.set(key, value);
+                }
+            });
+
+            // --- 4. Обновление тегов в DOM ---
+            document.title = title + " | VinoElite";
+            document.querySelector('meta[name="description"]').setAttribute('content', description.substring(0, 160));
+            
+            let canonicalEl = document.querySelector('link[rel="canonical"]');
+            if (!canonicalEl) {
+                canonicalEl = document.createElement('link');
+                canonicalEl.rel = 'canonical';
+                document.head.appendChild(canonicalEl);
+            }
+            canonicalEl.setAttribute('href', canonicalUrl.toString());
+
+            // Обновление OG-тегов
+            document.querySelector('meta[property="og:title"]').setAttribute('content', title + " | VinoElite");
+            document.querySelector('meta[property="og:description"]').setAttribute('content', description.substring(0, 160));
+            document.querySelector('meta[property="og:url"]').setAttribute('content', canonicalUrl.toString());
+
+            // --- 5. Генерация структурированных данных (JSON-LD) ---
+            const schemaEl = document.getElementById('catalog-schema-json');
+            if (schemaEl) {
+                const schema = {
+                    "@context": "https://schema.org",
+                    "@type": "CollectionPage",
+                    "name": title,
+                    "description": description,
+                    "url": canonicalUrl.toString(),
+                    "mainEntity": {
+                        "@type": "ItemList",
+                        "name": "Filtered Wine List",
+                        "itemListElement": []
+                    }
+                };
+                // Добавляем информацию о примененных фильтрах в разметку
+                let position = 1;
+                Object.keys(filters).forEach(key => {
+                    if (validParams.includes(key)) {
+                        filters[key].forEach(value => {
+                            schema.mainEntity.itemListElement.push({
+                                "@type": "ListItem",
+                                "position": position++,
+                                "name": `${capitalize(key)}: ${value}`
+                            });
+                        });
+                    }
+                });
+                schemaEl.textContent = JSON.stringify(schema);
+            }
+
+        } catch (e) {
+            console.warn("Early SEO bootstrap for catalog failed:", e);
+        }
+    })();
+    </script>
+    <!-- =============================================================== -->
+    <!-- ============= КОНЕЦ: ТУРБО-СКРИПТ ДЛЯ SEO КАТАЛОГА ============ -->
+    <!-- =============================================================== -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="catalog.css"> <!-- Ваши стили -->
+
+</head>
+<body>
+    <!-- ИЗМЕНЕНИЕ 3: Добавлен пустой скрипт для JSON-LD разметки -->
+    <script type="application/ld+json" id="catalog-schema-json">{}</script>
+
+    <!-- Прелоадер для мягкой загрузки -->
+    <div id="loader">
+       <div class="spinner"></div>
+    </div>
+
+    <!-- Обертка для основного контента для анимации загрузки -->
+    <div id="main-site-content">
+        <!-- Шапка сайта (без изменений) -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <a href="/index.html" class="logo">Vino<span>Elite</span></a>
+                    <nav class="nav-links" id="main-nav">
+                        <a href="/index.html">Home</a>
+                        <a href="/catalog.html" class="active">Catalog</a>
+                        <a href="#">Collections</a>
+                        <a href="#">Wineries</a>
+                        <a href="#">About Us</a>
+                        <div class="mobile-actions">
+                            <div class="mobile-search">
+                                <form class="search-box">
+                                    <input type="text" placeholder="Search wines...">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                            <a href="/profile.html" class="mobile-action-btn" id="mobile-auth-button">
+                                <i class="far fa-user"></i>
+                                <span>Sign In / Register</span>
+                            </a>
+                            <a href="/cart.html" class="mobile-action-btn">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Shopping Cart</span>
+                                <span class="cart-count">0</span>
+                            </a>
+                            <a href="/profile.html#wishlist" class="mobile-action-btn">
+                                <i class="far fa-heart"></i>
+                                <span>Wishlist</span>
+                                <span class="wishlist-count">0</span>
+                            </a>
+                        </div>
+                    </nav>
+                    <div class="header-actions">
+                        <button class="search-btn desktop-only" title="Search"><i class="fas fa-search"></i></button>
+                        <a href="/profile.html#wishlist" class="wishlist-btn desktop-only" title="Wishlist"><i class="far fa-heart"></i><span class="wishlist-count-badge">0</span></a>
+                        <a href="/profile.html" class="auth-btn desktop-only" id="auth-button" title="Sign In"><i class="far fa-user"></i><span class="auth-text">Sign In</span></a>
+                        <a href="/cart.html" class="cart-btn desktop-only" title="Cart"><i class="fas fa-shopping-cart"></i><span class="cart-count-badge">0</span></a>
+                    </div>
+                    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Остальная часть вашего HTML без изменений... -->
+        <section class="page-header animate-on-scroll">
+            <div class="container">
+                <div class="breadcrumb" id="breadcrumb-container"></div>
+                <h1 class="page-title">Wine Catalog</h1>
+            </div>
+        </section>
+        <div class="container">
+            <button class="mobile-filters-btn animate-on-scroll">
+                <i class="fas fa-filter"></i>
+                <span>Show Filters</span>
+            </button>
+            <div class="catalog-layout">
+                <aside class="filters-sidebar animate-on-scroll">
+                    <div class="filters-header">
+                        <h2 class="filters-title">Filters</h2>
+                        <button class="reset-filters">Reset All</button>
+                    </div>
+                    <div id="filters-container"></div>
+                </aside>
+                <section class="products-section animate-on-scroll">
+                    <div class="products-toolbar">
+                        <div class="products-count">Loading wines...</div>
+                        <div class="toolbar-actions">
+                            <div class="sort-options">
+                                <select class="sort-select" id="sort-select">
+                                    <option value="popularity">Popularity</option>
+                                    <option value="price-asc">Price (low to high)</option>
+                                    <option value="price-desc">Price (high to low)</option>
+                                    <option value="name-asc">Name (A-Z)</option>
+                                </select>
+                            </div>
+                            <div class="view-toggle">
+                                <button id="grid-view-btn" class="active"><i class="fas fa-th-large"></i></button>
+                                <button id="list-view-btn"><i class="fas fa-list"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="active-filters-container" id="active-filters-container"></div>
+                    <div class="products-grid grid-view" id="products-grid"></div>
+                    <div class="load-more-container">
+                        <button class="load-more-btn" id="load-more-btn">Load More</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <footer id="footer">
+            <!-- ... ваш футер ... -->
+        </footer>
+    </div>
+    <div id="login-modal" class="login-modal">
+        <!-- ... ваше модальное окно ... -->
+    </div>
+    <div id="search-modal" class="search-modal">
+        <!-- ... ваше модальное окно поиска ... -->
+    </div>
+    <div id="toast-container"></div>
+    <script type="module" src="catalog.js"></script>
+</body>
+</html>
