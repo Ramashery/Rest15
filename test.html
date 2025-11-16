@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест производительности</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        #product-title { color: #888; font-style: italic; }
+        .explanation { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .problem { color: #d9534f; }
+        .solution { color: #5cb85c; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Карточка товара</h1>
+        <h2 id="product-title">Загрузка названия товара...</h2>
+        
+        <div class="explanation">
+            <h3>Что здесь происходит?</h3>
+            <p>Эта страница имитирует работу вашего сайта. Название товара выше ("Загрузка...") отображается сразу. Настоящее название появится только через 3 секунды.</p>
+            
+            <p class="problem">
+                <strong>Проблема:</strong> Пользователи и поисковые роботы 3 секунды видят неполную информацию. Google PageSpeed видит то же самое и ставит низкие оценки по Производительности и SEO, потому что важный контент появляется слишком поздно.
+            </p>
+            
+            <p class="solution">
+                <strong>Решение:</strong> Информация о товаре (название, цена, описание) должна быть встроена в HTML-код страницы еще на сервере, а не подгружаться скриптом после загрузки страницы. Этот подход называется Server-Side Rendering (SSR) или Static Site Generation (SSG).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Эта функция имитирует задержку, с которой ваш скрипт получает
+        // данные из базы данных Firebase.
+        function fetchProductData() {
+            setTimeout(() => {
+                const productTitleElement = document.getElementById('product-title');
+                if (productTitleElement) {
+                    // Только сейчас мы "получили" данные и можем их показать
+                    productTitleElement.textContent = "Вино 'Château Margaux' 1995";
+                    productTitleElement.style.color = '#000';
+                    productTitleElement.style.fontStyle = 'normal';
+                }
+            }, 3000); // Задержка в 3 секунды (3000 миллисекунд)
+        }
+
+        // Запускаем "загрузку" данных после того, как страница загрузилась
+        document.addEventListener('DOMContentLoaded', fetchProductData);
+    </script>
+
+</body>
+</html>
