@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title и Description будут динамически обновлены JS -->
+    <title>Product Details - VinoElite</title>
+    <meta name="description" content="Loading product details...">
+    
+    <!-- Подключение иконок Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Подключение вашего единого файла стилей -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Прелоадер для плавной загрузки -->
+    <div id="loader">
+       <div class="spinner"></div>
+    </div>
+
+    <!-- Основной контейнер сайта -->
+    <div id="main-site-content">
+        
+        <!-- ======================= HEADER (Шапка сайта) ======================= -->
+        <!-- Этот блок одинаковый на всех страницах -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <a href="index.html" class="logo">Vino<span>Elite</span></a>
+                    <nav class="nav-links" id="main-nav">
+                        <a href="index.html">Home</a>
+                        <a href="catalog.html">Catalog</a> <!-- Ссылка на каталог может быть активной, если хотите -->
+                        <a href="#">Collections</a>
+                        <a href="#">Wineries</a>
+                        <a href="#">About Us</a>
+                        <!-- Мобильные действия -->
+                        <div class="mobile-actions">
+                            <div class="mobile-search">
+                                <form class="search-box">
+                                    <input type="text" placeholder="Search wines...">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                            <a href="#" class="mobile-action-btn" id="mobile-auth-button">
+                                <i class="far fa-user"></i>
+                                <span>Sign In / Register</span>
+                            </a>
+                            <a href="#" class="mobile-action-btn">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Shopping Cart</span>
+                                <span class="cart-count">0</span>
+                            </a>
+                            <a href="#" class="mobile-action-btn">
+                                <i class="far fa-heart"></i>
+                                <span>Wishlist</span>
+                                <span class="wishlist-count">0</span>
+                            </a>
+                        </div>
+                    </nav>
+                    <div class="header-actions">
+                        <button class="search-btn desktop-only" title="Search"><i class="fas fa-search"></i></button>
+                        <a href="#" class="wishlist-btn desktop-only" title="Wishlist"><i class="far fa-heart"></i><span class="wishlist-count-badge">0</span></a>
+                        <a href="#" class="auth-btn desktop-only" id="auth-button" title="Sign In"><i class="far fa-user"></i><span class="auth-text">Sign In</span></a>
+                        <a href="#" class="cart-btn desktop-only" title="Cart"><i class="fas fa-shopping-cart"></i><span class="cart-count-badge">0</span></a>
+                    </div>
+                    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ======================= MAIN CONTENT (Основной контент) ======================= -->
+        <!-- Уникальный контент для страницы товара -->
+        <main>
+            <section class="breadcrumb-section animate-on-scroll">
+                <div class="container">
+                    <div class="breadcrumb" id="breadcrumb">
+                        <!-- Хлебные крошки будут вставлены сюда JS -->
+                    </div>
+                </div>
+            </section>
+
+            <section class="product-section">
+                <div class="container">
+                    <div class="product-container animate-on-scroll">
+                        <!-- Левая часть: Галерея изображений -->
+                        <div class="product-gallery">
+                            <div class="product-gallery-main" id="product-gallery-main">
+                                <!-- Основное изображение будет вставлено сюда JS -->
+                            </div>
+                            <div class="product-thumbnails" id="product-thumbnails">
+                                <!-- Миниатюры будут вставлены сюда JS -->
+                            </div>
+                        </div>
+                        
+                        <!-- Правая часть: Информация о товаре -->
+                        <div class="product-info">
+                            <h1 class="product-title" id="product-title">Loading product...</h1>
+                            <div class="product-subtitle" id="product-subtitle"></div>
+                            <div class="product-rating" id="product-rating"></div>
+                            <p class="product-description" id="product-description"></p>
+                            <div class="product-details" id="product-details-list"></div>
+                            <div class="pricing" id="product-pricing"></div>
+                            <div class="stock-status" id="product-stock-status"></div>
+                            <div class="purchase-options">
+                                <div class="quantity-selector">
+                                    <button class="quantity-btn minus">-</button>
+                                    <input type="text" class="quantity-input" value="1" readonly>
+                                    <button class="quantity-btn plus">+</button>
+                                </div>
+                                <button class="add-to-cart" id="add-to-cart-btn">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Add to Cart</span>
+                                    <span class="cart-quantity-badge"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tabs-section animate-on-scroll">
+                <div class="container">
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-tab="tasting-notes">Tasting Notes</button>
+                        <button class="tab-btn" data-tab="food-pairing">Food Pairing</button>
+                        <button class="tab-btn" data-tab="reviews">Reviews</button>
+                    </div>
+                    <div class="tab-content active" id="tasting-notes-tab">
+                        <!-- Содержимое вкладок будет вставлено сюда JS -->
+                    </div>
+                    <div class="tab-content" id="food-pairing-tab"></div>
+                    <div class="tab-content" id="reviews-tab">
+                        <h3>Customer Reviews</h3>
+                        <div id="reviews-list"><p>Loading reviews...</p></div>
+                        <div id="review-form-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-section animate-on-scroll">
+                <div class="container">
+                    <h2 class="section-title">You Might Also Like</h2>
+                    <div class="products-grid" id="related-products-grid">
+                        <!-- Похожие товары будут вставлены сюда JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ======================= FOOTER (Подвал сайта) ======================= -->
+        <!-- Этот блок одинаковый на всех страницах -->
+        <footer id="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <!-- ...содержимое подвала... -->
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 VinoElite. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- Конец #main-site-content -->
+
+    <!-- ======================= MODALS & TOASTS (Модальные окна) ======================= -->
+    <!-- Эти блоки одинаковые на всех страницах -->
+    <div id="login-modal" class="login-modal">
+        <!-- ...содержимое модального окна входа... -->
+    </div>
+    <div id="search-modal" class="search-modal">
+        <!-- ...содержимое модального окна поиска... -->
+    </div>
+    <div id="toast-container"></div>
+
+    <!-- Подключение вашего единого файла скриптов -->
+    <script src="script.js" type="module" defer></script>
+
+</body>
+</html>
