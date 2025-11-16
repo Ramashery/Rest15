@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Meta tags will be dynamically updated by JS -->
+    <!-- Meta-теги будут обновлены динамически через JS -->
     <title>Product Details - VinoElite</title>
     <meta name="description" content="Loading product details...">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- ИСПРАВЛЕНО: Добавлен слэш для абсолютного пути от корня сайта -->
-    <link rel="stylesheet" href="/style.css">
+    
+    <!-- 1. Подключаем ОБЩИЕ стили для всего сайта (шапка, подвал и т.д.) -->
+    <link rel="stylesheet" href="style.css">
+    <!-- 2. Подключаем СПЕЦИФИЧНЫЕ стили только для этой страницы -->
+    <link rel="stylesheet" href="product.css">
 </head>
 <body>
     <div id="loader">
@@ -63,19 +66,19 @@
 
         <section class="breadcrumb-section animate-on-scroll">
             <div class="container">
-                <div class="breadcrumb" id="breadcrumb-container"></div>
+                <div class="breadcrumb" id="breadcrumb"></div>
             </div>
         </section>
 
         <section class="product-section">
             <div class="container">
                 <div class="product-container animate-on-scroll">
-                    <!-- JS will fill this section -->
                     <div class="product-gallery">
                         <div class="product-gallery-main" id="product-gallery-main"></div>
                         <div class="product-thumbnails" id="product-thumbnails"></div>
                     </div>
-                    <div class="product-info-details">
+                    
+                    <div class="product-info">
                         <h1 class="product-title" id="product-title">Loading product...</h1>
                         <div class="product-subtitle" id="product-subtitle"></div>
                         <div class="product-rating" id="product-rating"></div>
@@ -196,18 +199,10 @@
             <a href="#" id="forgot-password-link" class="forgot-password">Forgot Password?</a>
         </div>
     </div>
-    <div id="search-modal" class="search-modal">
-        <div class="search-modal-content">
-            <button class="close-search-modal-btn">&times;</button>
-            <form id="desktop-search-form" class="search-box">
-                <input type="text" id="desktop-search-input" placeholder="Search for wines, regions, wineries...">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form>
-        </div>
-    </div>
+
     <div id="toast-container"></div>
 
-    <!-- ИСПРАВЛЕНО: Добавлен слэш для абсолютного пути от корня сайта -->
-    <script type="module" src="/script.js"></script>
+    <!-- Подключение файла со скриптами -->
+    <script type="module" src="product.js"></script>
 </body>
 </html>
