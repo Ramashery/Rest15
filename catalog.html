@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 1. ОПТИМИЗАЦИЯ СЕТИ: Предварительное подключение к ключевым доменам -->
+    <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="//firestore.googleapis.com">
+    <link rel="dns-prefetch" href="//www.gstatic.com">
+
+    <!-- 2. SEO: Основные мета-теги -->
+    <title>Wine Catalog - VinoElite</title>
+    <meta name="description" content="Explore a curated collection of fine wines at VinoElite. Discover red, white, and sparkling wines from the best wineries around the world.">
+    <meta name="keywords" content="wine catalog, buy wine, red wine, white wine, sparkling wine, vinoelite, fine wine">
+    <meta name="author" content="VinoElite">
+    <meta name="robots" content="index, follow">
+
+    <!-- 3. SEO: Канонический URL и многоязычность (если планируется) -->
+    <link rel="canonical" href="https://your-website.com/catalog.html" />
+    <!-- <link rel="alternate" hreflang="en" href="https://your-website.com/catalog.html" /> -->
+    <!-- <link rel="alternate" hreflang="x-default" href="https://your-website.com/catalog.html" /> -->
+
+    <!-- 4. SEO: Open Graph теги для соцсетей -->
+    <meta property="og:title" content="Wine Catalog - VinoElite" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Explore a curated collection of fine wines from the best wineries around the world." />
+    <meta property="og:image" content="https://your-website.com/og-image-catalog.jpg" /> <!-- ВАЖНО: Укажите реальную ссылку на красивую картинку -->
+    <meta property="og:url" content="https://your-website.com/catalog.html" />
+    <meta property="og:site_name" content="VinoElite" />
+
+    <!-- 5. SEO: Schema-разметка для поисковиков -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "VinoElite",
+      "url": "https://your-website.com/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://your-website.com/catalog.html?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+
+    <!-- 6. ВЫНОС СТИЛЕЙ: Подключение внешнего файла CSS -->
+    <link rel="stylesheet" href="catalog.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="loader">
+       <div class="spinner"></div>
+    </div>
+
+    <div id="main-site-content">
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <a href="/index.html" class="logo">Vino<span>Elite</span></a>
+                    <nav class="nav-links" id="main-nav">
+                        <a href="/index.html">Home</a>
+                        <a href="/catalog.html" class="active">Catalog</a>
+                        <a href="#">Collections</a>
+                        <a href="#">Wineries</a>
+                        <a href="#">About Us</a>
+                        <div class="mobile-actions">
+                            <div class="mobile-search">
+                                <form class="search-box">
+                                    <input type="text" placeholder="Search wines...">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                            <a href="/profile.html" class="mobile-action-btn" id="mobile-auth-button">
+                                <i class="far fa-user"></i>
+                                <span>Sign In / Register</span>
+                            </a>
+                            <a href="/cart.html" class="mobile-action-btn">
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Shopping Cart</span>
+                                <span class="cart-count">0</span>
+                            </a>
+                            <a href="/profile.html#wishlist" class="mobile-action-btn">
+                                <i class="far fa-heart"></i>
+                                <span>Wishlist</span>
+                                <span class="wishlist-count">0</span>
+                            </a>
+                        </div>
+                    </nav>
+                    <div class="header-actions">
+                        <button class="search-btn desktop-only" title="Search"><i class="fas fa-search"></i></button>
+                        <a href="/profile.html#wishlist" class="wishlist-btn desktop-only" title="Wishlist"><i class="far fa-heart"></i><span class="wishlist-count-badge">0</span></a>
+                        <a href="/profile.html" class="auth-btn desktop-only" id="auth-button" title="Sign In"><i class="far fa-user"></i><span class="auth-text">Sign In</span></a>
+                        <a href="/cart.html" class="cart-btn desktop-only" title="Cart"><i class="fas fa-shopping-cart"></i><span class="cart-count-badge">0</span></a>
+                    </div>
+                    <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-header animate-on-scroll">
+            <div class="container">
+                <div class="breadcrumb" id="breadcrumb-container">
+                    <a href="/index.html">Home</a> / <a href="/catalog.html">Catalog</a>
+                </div>
+                <h1 class="page-title">Wine Catalog</h1>
+            </div>
+        </section>
+
+        <div class="container">
+            <button class="mobile-filters-btn animate-on-scroll">
+                <i class="fas fa-filter"></i>
+                <span>Show Filters</span>
+            </button>
+            
+            <div class="catalog-layout">
+                <aside class="filters-sidebar animate-on-scroll">
+                    <div class="filters-header">
+                        <h2 class="filters-title">Filters</h2>
+                        <button class="reset-filters">Reset All</button>
+                    </div>
+                    <div id="filters-container">
+                        <!-- Фильтры будут динамически загружены сюда -->
+                        <p>Loading filters...</p>
+                    </div>
+                </aside>
+                
+                <section class="products-section animate-on-scroll">
+                    <div class="products-toolbar">
+                        <div class="products-count">Loading wines...</div>
+                        <div class="toolbar-actions">
+                            <div class="sort-options">
+                                <select class="sort-select" id="sort-select">
+                                    <option value="popularity">Popularity</option>
+                                    <option value="price-asc">Price (low to high)</option>
+                                    <option value="price-desc">Price (high to low)</option>
+                                    <option value="name-asc">Name (A-Z)</option>
+                                </select>
+                            </div>
+                            <div class="view-toggle">
+                                <button id="grid-view-btn" class="active"><i class="fas fa-th-large"></i></button>
+                                <button id="list-view-btn"><i class="fas fa-list"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="active-filters-container" id="active-filters-container"></div>
+                    
+                    <!-- 7. STATIC FALLBACK: Отображаем статический контент до загрузки JS -->
+                    <div class="products-grid grid-view" id="products-grid">
+                        <!-- Этот блок будет виден сразу, улучшая LCP. JS заменит его реальными данными. -->
+                        <div class="product-card animate-on-scroll is-visible">
+                            <div class="slideshow-container">
+                                <div class="slideshow-item active"><img src="placeholder-wine1.jpg" alt="Placeholder Wine 1"></div>
+                            </div>
+                            <div class="product-info">
+                                <div>
+                                    <div class="product-subtitle">Red Dry from Bordeaux, France</div>
+                                    <h3 class="product-name">Château Fictif</h3>
+                                    <p class="product-description">A classic example of a rich and elegant red wine...</p>
+                                </div>
+                                <div class="product-price"><div class="price">$49.99</div></div>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="product-card animate-on-scroll is-visible">
+                            <div class="slideshow-container">
+                                <div class="slideshow-item active"><img src="placeholder-wine2.jpg" alt="Placeholder Wine 2"></div>
+                            </div>
+                            <div class="product-info">
+                                <div>
+                                    <div class="product-subtitle">White Dry from Tuscany, Italy</div>
+                                    <h3 class="product-name">Villa Falsa</h3>
+                                    <p class="product-description">A crisp and refreshing white wine with notes of citrus...</p>
+                                </div>
+                                <div class="product-price"><div class="price">$24.99</div></div>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            </div>
+                        </div>
+                         <div class="product-card animate-on-scroll is-visible">
+                            <div class="slideshow-container">
+                                <div class="slideshow-item active"><img src="placeholder-wine3.jpg" alt="Placeholder Wine 3"></div>
+                            </div>
+                            <div class="product-info">
+                                <div>
+                                    <div class="product-subtitle">Sparkling Brut from Champagne, France</div>
+                                    <h3 class="product-name">Le Rêve Pétillant</h3>
+                                    <p class="product-description">Elegant bubbles with a fine mousse and a celebratory finish...</p>
+                                </div>
+                                <div class="product-price"><div class="price">$79.99</div></div>
+                                <button class="add-to-cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="load-more-container">
+                        <button class="load-more-btn" id="load-more-btn">Load More</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <footer id="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>VinoElite</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">Shipping & Payment</a></li>
+                            <li><a href="#">Returns</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Catalog</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">Red Wines</a></li>
+                            <li><a href="#">White Wines</a></li>
+                            <li><a href="#">Sparkling Wines</a></li>
+                            <li><a href="#">Spirits</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Help</h3>
+                        <ul class="footer-links">
+                            <li><a href="#">FAQ</a></li>
+                            <li><a href="#">Terms of Use</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Sitemap</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contacts</h3>
+                        <ul class="footer-links">
+                            <li><i class="fas fa-phone"></i> +7 (495) 123-45-67</li>
+                            <li><i class="fas fa-envelope"></i> info@vinoelite.com</li>
+                            <li><i class="fas fa-map-marker-alt"></i> Moscow, Vinaya St, 15</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-telegram"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 VinoElite. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="login-modal" class="login-modal">
+        <div class="login-modal-content">
+            <button class="close-modal-btn">&times;</button>
+            <h3>Sign In or Sign Up</h3>
+            <p>to access your cart and wishlist across devices.</p>
+            <button id="google-signin-btn" class="social-btn google"><i class="fab fa-google"></i> Continue with Google</button>
+            <div class="separator"><span>OR</span></div>
+            <form id="auth-form">
+                <div class="form-group">
+                    <input type="email" id="auth-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="auth-password" placeholder="Enter your password" required>
+                </div>
+                <div class="error-message" id="auth-error"></div>
+                <button type="submit" class="auth-submit-btn">Continue with Email</button>
+            </form>
+            <a href="#" id="forgot-password-link" class="forgot-password">Forgot Password?</a>
+        </div>
+    </div>
+    <div id="toast-container"></div>
+
+    <!-- 8. ВЫНОС JS: Подключаем скрипт в конце body с атрибутом defer -->
+    <script type="module" src="catalog.js" defer></script>
+</body>
+</html>
