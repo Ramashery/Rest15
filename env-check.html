@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script Environment Check</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #121212; color: #e0e0e0; line-height: 1.6; padding: 15px; }
+        h1 { color: #bb86fc; }
+        .check-item { border-bottom: 1px solid #333; padding: 8px 0; display: flex; justify-content: space-between; align-items: center; }
+        .check-name { font-family: "Courier New", Courier, monospace; }
+        .status { padding: 3px 8px; border-radius: 4px; font-weight: bold; }
+        .status.ok { background-color: #03dac6; color: #121212; }
+        .status.fail { background-color: #cf6679; color: #121212; }
+        #final-diagnosis { border: 2px solid #cf6679; border-radius: 8px; padding: 15px; margin-top: 20px; background-color: #1e1e1e; }
+    </style>
+</head>
+<body>
+
+    <h1>Проверка Окружения для catalog.js</h1>
+    <p>Этот тест проверяет, все ли необходимые HTML-элементы присутствуют на странице. Если хотя бы один элемент НЕ НАЙДЕН, скрипт не сможет работать.</p>
+    
+    <div id="results"></div>
+    <div id="final-diagnosis" style="display: none;"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultsContainer = document.getElementById('results');
+            const diagnosisContainer = document.getElementById('final-diagnosis');
+            let allOk = true;
+
+            const requiredElementIds = [
+                // Основные контейнеры
+                'loader',
+                'main-site-content',
+                'products-grid',
+                'filters-container',
+                'active-filters-container',
+                // Элементы управления
+                'products-count',
+                'sort-select',
+                'reset-filters',
+                'load-more-btn',
+                // Элементы аутентификации
+                'login-modal',
+                'auth-button',
+                'mobile-auth-button',
+                'auth-form',
+                'google-signin-btn'
+            ];
+
+            requiredElementIds.forEach(id => {
+                const element = document.getElementById(id);
+                let statusHtml;
+                if (element) {
+                    statusHtml = '<span class="status ok">НАЙДЕН</span>';
+                } else {
+                    statusHtml = '<span class="status fail">НЕ НАЙДЕН</span>';
+                    allOk = false;
+                }
+                resultsContainer.innerHTML += `
+                    <div class="check-item">
+                        <span class="check-name">document.getElementById('${id}')</span>
+                        ${statusHtml}
+                    </div>
+                `;
+            });
+
+            if (!allOk) {
+                diagnosisContainer.style.display = 'block';
+                diagnosisContainer.innerHTML = `
+                    <h2>ДИАГНОЗ: КРИТИЧЕСКАЯ ОШИБКА</h2>
+                    <p>Один или несколько HTML-элементов не найдены на странице. Скрипт <strong>catalog.js</strong> не может запуститься, потому что ему не с чем работать.</p>
+                    <p><strong>ЧТО ДЕЛАТЬ:</strong> Проверьте ваш основной HTML-файл (<strong>catalog.html</strong>). Убедитесь, что все элементы, отмеченные как "НЕ НАЙДЕН", существуют и у них правильно написан атрибут <strong>id="..."</strong>.</p>
+                `;
+            } else {
+                 resultsContainer.innerHTML += `
+                    <div class="check-item" style="border: 2px solid #03dac6; padding: 15px; margin-top: 15px;">
+                        <span class="check-name"><strong>ВЕРДИКТ:</strong></span>
+                        <span class="status ok">ОКРУЖЕНИЕ В ПОРЯДКЕ</span>
+                    </div>
+                 `;
+            }
+        });
+    </script>
+
+</body>
+</html>
