@@ -158,13 +158,13 @@
                 <aside class="filters-sidebar animate-on-scroll">
                     <div class="filters-header">
                         <h2 class="filters-title">Filters</h2>
-                        <button class="reset-filters">Reset All</button>
+                        <button class="reset-filters" id="reset-filters">Reset All</button>
                     </div>
                     <div id="filters-container"></div>
                 </aside>
                 <section class="products-section animate-on-scroll">
                     <div class="products-toolbar">
-                        <div class="products-count">Loading wines...</div>
+                        <div class="products-count" id="products-count">Loading wines...</div>
                         <div class="toolbar-actions">
                             <div class="sort-options">
                                 <select class="sort-select" id="sort-select">
@@ -224,7 +224,6 @@
     </div>
     
     <div id="toast-container"></div>
-    
-    <script type="module" src="catalog.js?v=3"></script>
+    <script type="module" src="catalog.js"></script>
 </body>
 </html>
